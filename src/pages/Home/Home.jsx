@@ -15,7 +15,8 @@ const Home = () => {
   const [ctaText, setCtaText] = useState("Shop Now");
   const [maskImage, setMaskImage] = useState(coffee);
   const [backgroundColor, setBackgroundColor] = useState(
-    JSON.parse(localStorage.getItem("recentColors")).length > 0
+    JSON.parse(localStorage.getItem("recentColors")) &&
+      JSON.parse(localStorage.getItem("recentColors")).length > 0
       ? JSON.parse(localStorage.getItem("recentColors"))[0]
       : "#0369A1"
   );
@@ -23,6 +24,9 @@ const Home = () => {
     JSON.parse(localStorage.getItem("recentColors")) ?? []
   );
   const [openColorPicker, setOpenColorPicker] = useState(false);
+
+  // @ts-ignore
+  const eyeDropper = new EyeDropper();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -37,6 +41,23 @@ const Home = () => {
       reader.onerror = (error) => {
         console.error("Error", error);
       };
+    }
+  };
+
+  const handleEyeDropperClick = () => {
+    // Check if the EyeDropper API is available in the browser
+    if (eyeDropper) {
+      eyeDropper.open().then((color) => {
+        console.log(color);
+        setBackgroundColor(color.sRGBHex);
+        setOpenColorPicker(false);
+        setRecentColors((prevColors) => {
+          const updatedColors = [color.sRGBHex, ...prevColors.slice(0, 4)];
+          return updatedColors;
+        });
+      });
+    } else {
+      console.warn("EyeDropper API not available in this browser");
     }
   };
 
@@ -99,6 +120,7 @@ const Home = () => {
             onClick={(e) => {
               e.stopPropagation();
               setOpenColorPicker(!openColorPicker);
+              !openColorPicker && handleEyeDropperClick();
             }}
           />
         </div>
