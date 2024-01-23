@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CanvasEditor from "./components/CanvasEditor";
 import { Button, Input } from "antd";
 import { TbAtom, TbPlus, TbTextCaption } from "react-icons/tb";
@@ -14,7 +14,14 @@ const Home = () => {
   );
   const [ctaText, setCtaText] = useState("Shop Now");
   const [maskImage, setMaskImage] = useState(coffee);
-  const [backgroundColor, setBackgroundColor] = useState("#0369A1");
+  const [backgroundColor, setBackgroundColor] = useState(
+    JSON.parse(localStorage.getItem("recentColors")).length > 0
+      ? JSON.parse(localStorage.getItem("recentColors"))[0]
+      : "#0369A1"
+  );
+  const [recentColors, setRecentColors] = useState(
+    JSON.parse(localStorage.getItem("recentColors")) ?? []
+  );
   const [openColorPicker, setOpenColorPicker] = useState(false);
 
   const handleFileChange = (e) => {
@@ -32,6 +39,10 @@ const Home = () => {
       };
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("recentColors", JSON.stringify(recentColors));
+  }, [recentColors]);
 
   return (
     <div className={styles.container}>
@@ -62,18 +73,55 @@ const Home = () => {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <Button
-          shape="circle"
-          size="large"
-          type="primary"
-          icon={<TbPlus size={24} />}
-          onClick={() => setOpenColorPicker(!openColorPicker)}
-        />
-        {openColorPicker && (
-          <ChromePicker
-            color={backgroundColor}
-            onChange={(color) => setBackgroundColor(color.hex)}
+        <div className={styles.recent_colors}>
+          {recentColors.map((color, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundColor: color,
+                width: "30px",
+                height: "30px",
+                margin: "5px",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              onClick={() => {
+                setBackgroundColor(color);
+                setOpenColorPicker(false);
+              }}
+            />
+          ))}
+          <Button
+            shape="circle"
+            size="large"
+            type="primary"
+            icon={<TbPlus size={24} />}
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenColorPicker(!openColorPicker);
+            }}
           />
+        </div>
+        {openColorPicker && (
+          <div>
+            <ChromePicker
+              color={backgroundColor}
+              onChange={(color) => {
+                setBackgroundColor(color.hex);
+              }}
+              onChangeComplete={(color) => {
+                setTimeout(() => {
+                  setRecentColors((prevColors) => {
+                    const updatedColors = [
+                      color.hex,
+                      ...prevColors.slice(0, 4),
+                    ];
+                    return updatedColors;
+                  });
+                }, 1000);
+              }}
+            />
+          </div>
         )}
       </div>
     </div>
