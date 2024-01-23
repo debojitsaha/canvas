@@ -1,0 +1,12 @@
+.container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .canvas_editor {
+    width: 50vw;
+    height: 50vh;
+  }
+}

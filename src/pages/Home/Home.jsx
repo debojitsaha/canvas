@@ -1,9 +1,14 @@
-import React from 'react'
+// @ts-nocheck
+import React from "react";
+import CanvasEditor from "./components/CanvasEditor";
+import styles from "./Home.module.scss";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <div className={styles.container}>
+      <CanvasEditor />
+    </div>
+  );
+};
 
-export default Home
+export default Home;
