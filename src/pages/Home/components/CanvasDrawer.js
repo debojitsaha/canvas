@@ -1,15 +1,13 @@
-import { data } from "../../../constants/data";
-
 class CanvasDrawer {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
   }
 
-  draw() {
+  draw(backgroundColor) {
     this.ctx.save();
 
-    this.ctx.fillStyle = '#0369A1';
+    this.ctx.fillStyle = backgroundColor;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.restore();
@@ -100,21 +98,17 @@ class CanvasDrawer {
     const img = new Image();
     img.src = imageSrc;
 
-    const templateData = data;
-
     img.onload = () => {
       this.ctx.save();
 
       this.ctx.drawImage(img, x, y, width, height);
-      console.log('Rectangle Image drawn successfully'); // Log success
+      console.log('Rectangle Image drawn successfully');
 
       this.ctx.restore();
-      // this.drawCaption(templateData.caption);
-      // this.drawCTA(templateData.cta);
     };
 
     img.onerror = (error) => {
-      console.error('Error loading image:', error); // Log error
+      console.error('Error loading image:', error);
     };
   }
 
@@ -132,13 +126,13 @@ class CanvasDrawer {
       // Draw the new image at the center of the mask area
       this.ctx.drawImage(img, centerX - width / (2), centerY - height / (2), width, height);
 
-      console.log('Mask Image drawn successfully'); // Log success
+      console.log('Mask Image drawn successfully');
 
       this.ctx.restore();
     };
 
     img.onerror = (error) => {
-      console.error('Error loading image:', error); // Log error
+      console.error('Error loading image:', error);
     };
   }
 

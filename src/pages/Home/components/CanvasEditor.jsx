@@ -1,24 +1,27 @@
-// @ts-nocheck
 import React, { useEffect, useRef } from "react";
 import CanvasDrawer from "./CanvasDrawer";
+// @ts-ignore
 import image from "assets/image.png";
-import coffee from "assets/coffee.jpeg";
+// @ts-ignore
 import Design_Pattern from "assets/Design_Pattern.png";
+// @ts-ignore
 import Mask_stroke from "assets/Mask_stroke.png";
+// @ts-ignore
 import mask from "assets/mask.png";
+// @ts-ignore
 import styles from "../Home.module.scss";
 import { data } from "../../../constants/data";
 
 const templateData = data;
 
-const CanvasComponent = ({ captionText, ctaText, maskImage }) => {
+const CanvasComponent = ({ captionText, ctaText, maskImage, backgroundColor }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const canvasDrawer = new CanvasDrawer(canvas);
 
-    canvasDrawer.draw(); // Initial drawing
+    canvasDrawer.draw(backgroundColor); // Initial drawing
 
     canvasDrawer.drawImageInRectangle(Design_Pattern, 0, 0, 1080, 1080);
     canvasDrawer.drawImageInMask(mask, 0, 0, 1080, 1080);
@@ -33,7 +36,7 @@ const CanvasComponent = ({ captionText, ctaText, maskImage }) => {
     return () => {
       canvasDrawer.clear();
     };
-  }, [captionText, ctaText, maskImage]);
+  }, [captionText, ctaText, maskImage, backgroundColor]);
 
   return (
     <canvas

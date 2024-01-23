@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CanvasEditor from "./components/CanvasEditor";
-import { Input } from "antd";
-import { TbAtom, TbTextCaption } from "react-icons/tb";
+import { Button, Input } from "antd";
+import { TbAtom, TbPlus, TbTextCaption } from "react-icons/tb";
 // @ts-ignore
 import coffee from "assets/coffee.jpeg";
-// @ts-ignore
-// import coffee2 from "assets/coffee2.webp";
+import { ChromePicker } from "react-color";
 // @ts-ignore
 import styles from "./Home.module.scss";
 
@@ -15,6 +14,8 @@ const Home = () => {
   );
   const [ctaText, setCtaText] = useState("Shop Now");
   const [maskImage, setMaskImage] = useState(coffee);
+  const [backgroundColor, setBackgroundColor] = useState("#0369A1");
+  const [openColorPicker, setOpenColorPicker] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -25,6 +26,10 @@ const Home = () => {
         setMaskImage(content);
       };
       reader.readAsDataURL(file);
+
+      reader.onerror = (error) => {
+        console.error("Error", error);
+      };
     }
   };
 
@@ -34,6 +39,7 @@ const Home = () => {
         captionText={captionText}
         ctaText={ctaText}
         maskImage={maskImage}
+        backgroundColor={backgroundColor}
       />
       <div className={styles.input_container}>
         <Input
@@ -56,6 +62,19 @@ const Home = () => {
           accept="image/*"
           onChange={handleFileChange}
         />
+        <Button
+          shape="circle"
+          size="large"
+          type="primary"
+          icon={<TbPlus size={24} />}
+          onClick={() => setOpenColorPicker(!openColorPicker)}
+        />
+        {openColorPicker && (
+          <ChromePicker
+            color={backgroundColor}
+            onChange={(color) => setBackgroundColor(color.hex)}
+          />
+        )}
       </div>
     </div>
   );
