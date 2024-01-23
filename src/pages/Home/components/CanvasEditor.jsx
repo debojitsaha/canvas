@@ -27,7 +27,7 @@ const CanvasComponent = ({ captionText, ctaText, maskImage, backgroundColor }) =
     canvasDrawer.drawImageInMask(mask, 0, 0, 1080, 1080);
     canvasDrawer.drawImageInRectangle(maskImage, 56, 442, 970, 600);
     canvasDrawer.drawImageInMask(Mask_stroke, 0, 0, 1080, 1080);
-    canvasDrawer.drawImageInRectangle(image, 800, 10, 72, 72);
+    canvasDrawer.drawImageInRectangle(image, 800, 10, 180, 150);
 
     canvasDrawer.drawCaption(templateData.caption, captionText);
     canvasDrawer.drawCTA(templateData.cta, ctaText);
