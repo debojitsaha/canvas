@@ -15,15 +15,15 @@ class CanvasDrawer {
     this.ctx.restore();
   }
 
-  drawCaption(caption) {
-    const { text, position, max_characters_per_line, font_size, alignment, text_color } = caption;
+  drawCaption(caption, captionText) {
+    const { position, max_characters_per_line, font_size, alignment, text_color } = caption;
     this.ctx.save();
 
     this.ctx.fillStyle = text_color || '#000';
     this.ctx.strokeStyle = text_color || '#FFFFFF';
     this.ctx.font = `${font_size}px Arial`;
 
-    const words = text.split(' ');
+    const words = captionText.split(' ');
     let line = '';
     let lines = [];
 
@@ -53,8 +53,8 @@ class CanvasDrawer {
     this.ctx.restore();
   }
 
-  drawCTA(cta) {
-    const { text, position, font_size = 30, text_color, background_color, wrap_length = 20 } = cta;
+  drawCTA(cta, ctaText) {
+    const { position, font_size = 30, text_color, background_color, wrap_length = 20 } = cta;
     this.ctx.save();
 
     this.ctx.textAlign = 'center';
@@ -65,19 +65,21 @@ class CanvasDrawer {
 
     const x = position.x;
     const y = position.y;
+    const padding = 24;
 
     // Measure text width and height
-    const textMetrics = this.ctx.measureText(text);
+    const textMetrics = this.ctx.measureText(ctaText);
     const textWidth = textMetrics.width;
     const textHeight = font_size;
+    console.log(textMetrics, textWidth, textHeight);
 
     // Calculate width and height of the rounded rect (CTA button)
-    const rectWidth = textWidth + 7 * wrap_length;
-    const rectHeight = textHeight + 3 * wrap_length;
+    const rectWidth = textWidth + 7 * wrap_length + padding;
+    const rectHeight = textHeight + 3 * wrap_length + padding / 2;
 
     // Draw the rounded rect (CTA button)
     this.ctx.beginPath();
-    this.ctx.moveTo(x - rectWidth / 2 + wrap_length, y - rectHeight / 2);
+    this.ctx.moveTo(x + 5 - rectWidth / 2 + wrap_length, y - rectHeight / 2);
     this.ctx.arcTo(x + rectWidth / 2, y - rectHeight / 2, x + rectWidth / 2, y + rectHeight / 2, wrap_length);
     this.ctx.arcTo(x + rectWidth / 2, y + rectHeight / 2, x - rectWidth / 2, y + rectHeight / 2, wrap_length);
     this.ctx.arcTo(x - rectWidth / 2, y + rectHeight / 2, x - rectWidth / 2, y - rectHeight / 2, wrap_length);
@@ -88,8 +90,8 @@ class CanvasDrawer {
 
     this.ctx.fillStyle = text_color || '#FFFFFF';
     this.ctx.font = `${font_size}px Arial`;
-    this.ctx.fillText(text, x, y);
-    this.ctx.strokeText(text, x, y);
+    this.ctx.fillText(ctaText, x, y);
+    this.ctx.strokeText(ctaText, x, y);
 
     this.ctx.restore();
   }

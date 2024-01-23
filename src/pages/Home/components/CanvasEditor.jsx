@@ -10,7 +10,8 @@ import styles from "../Home.module.scss";
 import { data } from "../../../constants/data";
 
 const templateData = data;
-const CanvasComponent = () => {
+
+const CanvasComponent = ({ captionText, ctaText, maskImage }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -21,18 +22,18 @@ const CanvasComponent = () => {
 
     canvasDrawer.drawImageInRectangle(Design_Pattern, 0, 0, 1080, 1080);
     canvasDrawer.drawImageInMask(mask, 0, 0, 1080, 1080);
-    canvasDrawer.drawImageInRectangle(coffee, 56, 442, 970, 600);
+    canvasDrawer.drawImageInRectangle(maskImage, 56, 442, 970, 600);
     canvasDrawer.drawImageInMask(Mask_stroke, 0, 0, 1080, 1080);
     canvasDrawer.drawImageInRectangle(image, 800, 10, 72, 72);
 
-    canvasDrawer.drawCaption(templateData.caption);
-    canvasDrawer.drawCTA(templateData.cta);
+    canvasDrawer.drawCaption(templateData.caption, captionText);
+    canvasDrawer.drawCTA(templateData.cta, ctaText);
 
     // Cleanup function
     return () => {
       canvasDrawer.clear();
     };
-  }, []);
+  }, [captionText, ctaText, maskImage]);
 
   return (
     <canvas
