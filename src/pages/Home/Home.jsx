@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CanvasEditor from "./components/CanvasEditor";
 import { Button, Input } from "antd";
 import { TbAtom, TbPlus, TbTextCaption } from "react-icons/tb";
+import { data } from "../../constants/data";
 // @ts-ignore
 import coffee from "assets/coffee.jpeg";
 import { ChromePicker } from "react-color";
@@ -9,10 +10,8 @@ import { ChromePicker } from "react-color";
 import styles from "./Home.module.scss";
 
 const Home = () => {
-  const [captionText, setCaptionText] = useState(
-    "1 & 2 BHK Luxury Apartments at just Rs.34.97Lakhs"
-  );
-  const [ctaText, setCtaText] = useState("Shop Now");
+  const [captionText, setCaptionText] = useState(data.caption.text);
+  const [ctaText, setCtaText] = useState(data.cta.text);
   const [maskImage, setMaskImage] = useState(coffee);
   const [backgroundColor, setBackgroundColor] = useState(
     JSON.parse(localStorage.getItem("recentColors")) &&
