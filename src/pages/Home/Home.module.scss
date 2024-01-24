@@ -28,6 +28,20 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
+    padding: 24px;
+
+    .header{
+      text-align: center;
+      margin-bottom: 20px;
+      h3{
+        margin: 4px;
+        color: #0f172a;
+      }
+      span{
+        font-size: 14px;
+        color: #94a3b8;
+      }
+    }
 
     :global(.ant-upload-drag-icon) {
       svg {
@@ -39,8 +53,6 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 8px;
-      margin-bottom: 8px;
     }
   }
 }

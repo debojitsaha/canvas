@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CanvasEditor from "./components/CanvasEditor";
-import { Button, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { TbAtom, TbPlus, TbTextCaption } from "react-icons/tb";
 import { data } from "../../constants/data";
 // @ts-ignore
@@ -73,26 +73,39 @@ const Home = () => {
         backgroundColor={backgroundColor}
       />
       <div className={styles.input_container}>
-        <Input
-          size="large"
-          placeholder="Enter your caption text.."
-          prefix={<TbTextCaption />}
-          defaultValue={captionText}
-          onChange={(e) => setCaptionText(e.target.value)}
-        />
-        <Input
-          size="large"
-          placeholder="Enter your cta text.."
-          prefix={<TbAtom />}
-          defaultValue={ctaText}
-          onChange={(e) => setCtaText(e.target.value)}
-        />
-        <Input
-          size="large"
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
+        <div className={styles.header}>
+          <h3>Ad Customization</h3>
+          <span>Customize your canvas and get the output accordingly</span>
+        </div>
+        <Form layout="vertical">
+          <Form.Item label="Caption Text">
+            <Input
+              size="large"
+              placeholder="Enter your caption text.."
+              prefix={<TbTextCaption />}
+              defaultValue={captionText}
+              onChange={(e) => setCaptionText(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item label="CTA Text">
+            <Input
+              size="large"
+              placeholder="Enter your cta text.."
+              prefix={<TbAtom />}
+              defaultValue={ctaText}
+              onChange={(e) => setCtaText(e.target.value)}
+            />
+          </Form.Item>
+          <Form.Item label="Select Image">
+            <Input
+              size="large"
+              type="file"
+              accept="image/*"
+              placeholder="Upload your mask image.."
+              onChange={handleFileChange}
+            />
+          </Form.Item>
+        </Form>
         <div className={styles.recent_colors}>
           {recentColors.map((color, index) => (
             <div
@@ -107,6 +120,15 @@ const Home = () => {
               }}
               onClick={() => {
                 setBackgroundColor(color);
+                if (color !== backgroundColor) {
+                  setRecentColors((prevColors) => {
+                    const updatedColors = [
+                      color,
+                      ...prevColors.slice(0, prevColors.length - 1),
+                    ];
+                    return updatedColors;
+                  });
+                }
                 setOpenColorPicker(false);
               }}
             />
