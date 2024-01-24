@@ -76,7 +76,7 @@ class CanvasDrawer {
 
     // Draw the rounded rect (CTA button)
     this.ctx.beginPath();
-    this.ctx.moveTo(x + 5 - rectWidth / 2 + wrap_length, y - rectHeight / 2);
+    this.ctx.moveTo(x + wrap_length, y - rectHeight / 2);
     this.ctx.arcTo(x + rectWidth / 2, y - rectHeight / 2, x + rectWidth / 2, y + rectHeight / 2, wrap_length);
     this.ctx.arcTo(x + rectWidth / 2, y + rectHeight / 2, x - rectWidth / 2, y + rectHeight / 2, wrap_length);
     this.ctx.arcTo(x - rectWidth / 2, y + rectHeight / 2, x - rectWidth / 2, y - rectHeight / 2, wrap_length);

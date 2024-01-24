@@ -6,6 +6,7 @@ import { data } from "../../constants/data";
 // @ts-ignore
 import coffee from "assets/coffee.jpeg";
 import { ChromePicker } from "react-color";
+import { runes } from "runes2";
 // @ts-ignore
 import styles from "./Home.module.scss";
 
@@ -128,6 +129,13 @@ const Home = () => {
               prefix={<TbAtom />}
               defaultValue={ctaText}
               onChange={(e) => setCtaText(e.target.value)}
+              count={{
+                show: true,
+                max: 12,
+                strategy: (txt) => runes(txt).length,
+                exceedFormatter: (txt, { max }) =>
+                  runes(txt).slice(0, max).join(""),
+              }}
             />
           </Form.Item>
           <Form.Item label="Select Image">
