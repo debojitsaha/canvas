@@ -88,7 +88,7 @@ const Home = () => {
         />
         {recentMaskImages.length > 0 && (
           <>
-            <span className={styles.recently}>Recently upload images</span>
+            <span className={styles.recently}>Recently uploaded images</span>
             <div className={styles.recent_mask_images}>
               {recentMaskImages.map((image) => (
                 <div

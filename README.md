@@ -14,6 +14,8 @@ The Canvas Editor project is a web application that allows users to dynamically 
 
 - **Recent Colors:** The color picker includes a list of recently picked colors, allowing users to easily reuse colors.
 
+- **Recently Uploaded Images:** The application maintains a list of recently uploaded images, allowing users to easily reuse images.
+
 - **Eye Dropper API:** Experimental EyeDropper API is integrated to allow users to pick colors directly from the page. It is only supported in Chrome, Opera and Edge browsers.
 
 ## Technologies Used
