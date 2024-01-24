@@ -43,8 +43,8 @@ class CanvasDrawer {
     let y = position.y
     for (let i = 0; i < lines.length; i++) {
       this.ctx.textAlign = alignment || 'left';
-      this.ctx.fillText(lines[i], position.x, y);
-      this.ctx.strokeText(lines[i], position.x, y);
+      this.ctx.fillText(lines[i], position.x + 30, y + 75);
+      this.ctx.strokeText(lines[i], position.x + 30, y + 75);
       y += font_size;
     }
 
@@ -61,8 +61,8 @@ class CanvasDrawer {
     this.ctx.fillStyle = background_color || '#000';
     this.ctx.strokeStyle = text_color || '#FFFFFF';
 
-    const x = position.x;
-    const y = position.y;
+    const x = position.x + 8;
+    const y = position.y - 60;
     const padding = 24;
 
     // Measure text width and height
@@ -71,8 +71,8 @@ class CanvasDrawer {
     const textHeight = font_size;
 
     // Calculate width and height of the rounded rect (CTA button)
-    const rectWidth = textWidth + 7 * wrap_length + padding;
-    const rectHeight = textHeight + 3 * wrap_length + padding / 2;
+    const rectWidth = textWidth + 8 * wrap_length + padding;
+    const rectHeight = textHeight + 2 * wrap_length + padding / 2;
 
     // Draw the rounded rect (CTA button)
     this.ctx.beginPath();

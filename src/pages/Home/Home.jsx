@@ -4,7 +4,7 @@ import { Button, Form, Input, message } from "antd";
 import { TbAtom, TbPlus, TbTextCaption } from "react-icons/tb";
 import { data } from "../../constants/data";
 // @ts-ignore
-import coffee from "assets/coffee.jpeg";
+import coffee from "assets/coffee2.png";
 import { ChromePicker } from "react-color";
 import { runes } from "runes2";
 // @ts-ignore

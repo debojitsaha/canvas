@@ -29,7 +29,7 @@ const CanvasComponent = ({
     canvasDrawer.draw(backgroundColor); // Initial drawing
 
     canvasDrawer.drawImageInRectangle(Design_Pattern, 0, 0, 1080, 1080);
-    canvasDrawer.drawImageInRectangle(image, 800, 10, 180, 150);
+    canvasDrawer.drawImageInRectangle(image, 820, 10, 160, 140);
     canvasDrawer.drawImageInMask(mask, 0, 0, 1080, 1080);
     canvasDrawer.drawImageInMask(Mask_stroke, 0, 0, 1080, 1080);
 
@@ -45,12 +45,12 @@ const CanvasComponent = ({
   }, [captionText, ctaText, maskImage, backgroundColor]);
 
   return (
-      <canvas
-        className={styles.canvas_editor}
-        ref={canvasRef}
-        width="1080"
-        height="1080"
-      />
+    <canvas
+      className={styles.canvas_editor}
+      ref={canvasRef}
+      width="1080"
+      height="1080"
+    />
   );
 };
 
