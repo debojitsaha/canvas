@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import CanvasDrawer from "./CanvasDrawer";
 // @ts-ignore
-import image from "assets/image.png";
+import image from "../../../assets/image.png";
 // @ts-ignore
-import Design_Pattern from "assets/Design_Pattern.png";
+import Design_Pattern from "../../../assets/Design_Pattern.png";
 // @ts-ignore
-import Mask_stroke from "assets/Mask_stroke.png";
+import Mask_stroke from "../../../assets/Mask_stroke.png";
 // @ts-ignore
-import mask from "assets/mask.png";
+import mask from "../../../assets/mask.png";
+import { data } from "../../../constants/data";
 // @ts-ignore
 import styles from "../Home.module.scss";
-import { data } from "../../../constants/data";
 
 const templateData = data;
 
