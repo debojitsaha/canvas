@@ -49,3 +49,9 @@ The Canvas Editor project is a web application that allows users to dynamically 
    ```bash
    http://localhost:3000/
    ```
+
+## Browser Issues
+
+- The image upload feature works properly on Firefox. However it may cause some issues while drawing the image on the canvas after uploading the image on other browsers like Chrome and Safari. To note, this issue is only observed a few times (specially on the first image upload) and not always.
+
+- The Eye Dropper API is only supported in Chrome, Opera and Edge browsers. It is not supported in Firefox, Safari and other browsers.
