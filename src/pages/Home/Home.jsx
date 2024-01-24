@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CanvasEditor from "./components/CanvasEditor";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { TbAtom, TbPlus, TbTextCaption } from "react-icons/tb";
 import { data } from "../../constants/data";
 // @ts-ignore
@@ -12,7 +12,12 @@ import styles from "./Home.module.scss";
 const Home = () => {
   const [captionText, setCaptionText] = useState(data.caption.text);
   const [ctaText, setCtaText] = useState(data.cta.text);
+
   const [maskImage, setMaskImage] = useState(coffee);
+  const [recentMaskImages, setRecentMaskImages] = useState(
+    JSON.parse(localStorage.getItem("recentMaskImages")) ?? []
+  );
+
   const [backgroundColor, setBackgroundColor] = useState(
     JSON.parse(localStorage.getItem("recentColors")) &&
       JSON.parse(localStorage.getItem("recentColors")).length > 0
@@ -24,9 +29,6 @@ const Home = () => {
   );
   const [openColorPicker, setOpenColorPicker] = useState(false);
 
-  // @ts-ignore
-  const eyeDropper = new EyeDropper();
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -34,6 +36,10 @@ const Home = () => {
       reader.onloadend = () => {
         const content = reader.result;
         setMaskImage(content);
+        setRecentMaskImages((prevImages) => {
+          const updatedImages = [content, ...prevImages.slice(0, 2)];
+          return updatedImages;
+        });
       };
       reader.readAsDataURL(file);
 
@@ -44,6 +50,8 @@ const Home = () => {
   };
 
   const handleEyeDropperClick = () => {
+    // @ts-ignore
+    const eyeDropper = new EyeDropper();
     // Check if the EyeDropper API is available in the browser
     if (eyeDropper) {
       eyeDropper.open().then((color) => {
@@ -56,7 +64,7 @@ const Home = () => {
         });
       });
     } else {
-      console.warn("EyeDropper API not available in this browser");
+      message.error("EyeDropper API not available in this browser");
     }
   };
 
@@ -64,14 +72,40 @@ const Home = () => {
     localStorage.setItem("recentColors", JSON.stringify(recentColors));
   }, [recentColors]);
 
+  useEffect(() => {
+    localStorage.setItem("recentMaskImages", JSON.stringify(recentMaskImages));
+  }, [recentMaskImages]);
+
   return (
     <div className={styles.container}>
-      <CanvasEditor
-        captionText={captionText}
-        ctaText={ctaText}
-        maskImage={maskImage}
-        backgroundColor={backgroundColor}
-      />
+      <div className={styles.canvas_container}>
+        <CanvasEditor
+          captionText={captionText}
+          ctaText={ctaText}
+          maskImage={maskImage}
+          backgroundColor={backgroundColor}
+        />
+        {recentMaskImages.length > 0 && (
+          <>
+            <span className={styles.recently}>Recently upload images</span>
+            <div className={styles.recent_mask_images}>
+              {recentMaskImages.map((image) => (
+                <div
+                  key={image}
+                  className={styles.mask_image}
+                  onClick={() => setMaskImage(image)}
+                >
+                  <img
+                    src={image}
+                    alt="Recent Mask Image"
+                    className={styles.recent_mask_image}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
       <div className={styles.input_container}>
         <div className={styles.header}>
           <h3>Ad Customization</h3>

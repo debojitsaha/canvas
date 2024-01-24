@@ -69,7 +69,6 @@ class CanvasDrawer {
     const textMetrics = this.ctx.measureText(ctaText);
     const textWidth = textMetrics.width;
     const textHeight = font_size;
-    console.log(textMetrics, textWidth, textHeight);
 
     // Calculate width and height of the rounded rect (CTA button)
     const rectWidth = textWidth + 7 * wrap_length + padding;
@@ -103,6 +102,30 @@ class CanvasDrawer {
 
       this.ctx.drawImage(img, x, y, width, height);
       console.log('Rectangle Image drawn successfully');
+
+      this.ctx.restore();
+    };
+
+    img.onerror = (error) => {
+      console.error('Error loading image:', error);
+    };
+  }
+
+  drawImageOverMask(imageSrc, x, y, width, height) {
+    const img = new Image();
+    img.src = imageSrc;
+
+    img.onload = () => {
+      this.ctx.save();
+
+      // Calculate the center of the mask area
+      const centerX = x + width / 2;
+      const centerY = y + height / 2;
+
+      // Draw the new image at the center of the mask area
+      this.ctx.drawImage(img, centerX - width / (2), centerY - height / (2), width, height);
+
+      console.log('Mask over Image drawn successfully');
 
       this.ctx.restore();
     };

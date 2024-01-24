@@ -13,13 +13,48 @@
     height: unset;
   }
 
-  .canvas_editor {
-    width: 50vw;
-    height: 50vh;
+  .canvas_container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 
-    @media screen and (max-width: 768px) {
-      width: 100%;
-      height: 100%;
+    .canvas_editor {
+      width: 600px;
+      height: 600px;
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .recent_mask_images {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      .mask_image {
+        width: 100px;
+        height: 100px;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        :hover {
+          transform: scale(1.1);
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
     }
   }
 
@@ -30,14 +65,14 @@
     width: 100%;
     padding: 24px;
 
-    .header{
+    .header {
       text-align: center;
       margin-bottom: 20px;
-      h3{
+      h3 {
         margin: 4px;
         color: #0f172a;
       }
-      span{
+      span {
         font-size: 14px;
         color: #94a3b8;
       }
@@ -49,10 +84,49 @@
       }
     }
 
-    .recent_colors{
+    .recent_colors {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+    }
+  }
+}
+
+.recently {
+  font-size: 16px;
+  color: #64748b;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: -82px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 64px;
+    height: 2px;
+    background-color: #64748b;
+    border-radius: 8px;
+
+    @media screen and (max-width: 768px) {
+      width: 36px;
+      right: -48px;
+    }
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: -82px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 64px;
+    height: 2px;
+    background-color: #64748b;
+    border-radius: 8px;
+
+    @media screen and (max-width: 768px) {
+      width: 36px;
+      left: -48px;
     }
   }
 }
