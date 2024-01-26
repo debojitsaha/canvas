@@ -17,7 +17,7 @@ class CanvasDrawer {
     const { position, max_characters_per_line, font_size, alignment, text_color } = caption;
     this.ctx.save();
 
-    this.ctx.fillStyle = text_color || '#000';
+    this.ctx.fillStyle = text_color || '#FFFFFF';
     this.ctx.strokeStyle = text_color || '#FFFFFF';
     this.ctx.font = `${font_size}px Arial`;
 
